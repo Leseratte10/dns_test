@@ -71,8 +71,6 @@ jobs:
       - name: Compile for Windows
         run: |
           python -m nuitka dnschef.py --follow-imports
-          mv dnschef.bin dnschef-windows.exe
-          ./dnschef-windows.exe
         env: 
           CC: "C:\\mingw64\\bin\\gcc.exe"
       - name: Run
