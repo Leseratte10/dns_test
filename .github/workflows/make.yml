@@ -1,0 +1,88 @@
+name: Build binaries
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+#  build-mac:
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Setup Python
+#        uses: actions/setup-python@v2
+#        with: 
+#          python-version: 3.8
+#      - name: Configure Python
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install dnslib configparser IPy nuitka
+#      - name: Compile for Mac
+#        run: |
+#          python -m nuitka dnschef.py --follow-imports
+#          mv dnschef.bin dnschef-mac.elf
+#      - name: Upload distribution
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: dnschef-mac
+#          path: | 
+#            dnschef-mac.elf
+#
+#  build-linux:
+#    runs-on: ubuntu-18.04
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Setup Python
+#        uses: actions/setup-python@v2
+#        with: 
+#          python-version: 3.8
+#      - name: Configure Python
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install dnslib configparser IPy nuitka
+#      - name: Compile for Ubuntu
+#        run: |
+#          python -m nuitka dnschef.py --follow-imports
+#          mv dnschef.bin dnschef-linux.elf
+#      - name: Upload distribution
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: dnschef-linux
+#          path: | 
+#            dnschef-linux.elf
+
+  build-windows:
+    runs-on: windows-2019
+    defaults: 
+      run: 
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with: 
+          python-version: 3.8
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: git mingw-w64-x86_64-toolchain
+          update: true
+      - name: Configure Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install dnslib configparser IPy nuitka
+      - name: Delete wrong python
+        run: |
+          mv "D:/a/_temp/msys/msys64/mingw64/bin/python.exe" "D:/a/_temp/msys/msys64/mingw64/bin/python_broken.exe"
+      - run: pacman --noconfirm -S gcc
+      - name: Compile for Windows
+        run: |
+          python -m nuitka dnschef.py --follow-imports
+          mv dnschef.bin dnschef-windows.exe
+          ./dnschef-windows.exe
+      - name: Upload distribution
+        uses: actions/upload-artifact@v2
+        with:
+          name: dnschef-windows
+          path: dnschef-windows.exe
