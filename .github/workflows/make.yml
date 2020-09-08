@@ -74,7 +74,7 @@ jobs:
           mv dnschef.bin dnschef-windows.exe
           ./dnschef-windows.exe
         env: 
-          CC: "C:\mingw64\bin\gcc.exe"
+          CC: "C:\\mingw64\\bin\\gcc.exe"
       - name: Upload distribution
         uses: actions/upload-artifact@v2
         with:
