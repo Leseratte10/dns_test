@@ -75,7 +75,6 @@ jobs:
           CC: "C:\\mingw64\\bin\\gcc.exe"
       - name: Run
         run: |
-          mv dnschef.bin dnschef-windows.exe || true
           mv dnschef.exe dnschef-windows.exe || true
           ./dnschef-windows.exe
       - name: Upload distribution
