@@ -68,8 +68,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install dnslib configparser IPy nuitka
-      - run: |
-          mv C:\mingw64 C:\MinGW64
       - name: Compile for Windows
         run: |
           python -m nuitka dnschef.py --follow-imports
