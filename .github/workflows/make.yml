@@ -73,13 +73,13 @@ jobs:
           python -m nuitka dnschef.py --follow-imports
           mv dnschef.bin dnschef-windows.exe
           ./dnschef-windows.exe
+        env: 
+          CC: "C:\\mingw64\\bin\\gcc.exe"
       - name: Run
         run: |
           mv dnschef.bin dnschef-windows.exe || true
           mv dnschef.exe dnschef-windows.exe || true
           ./dnschef-windows.exe
-        env: 
-          CC: "C:\\mingw64\\bin\\gcc.exe"
       - name: Upload distribution
         uses: actions/upload-artifact@v2
         with:
