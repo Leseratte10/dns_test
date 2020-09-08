@@ -68,7 +68,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install dnslib configparser IPy nuitka
-      - run: pacman --noconfirm -S gcc
       - name: Compile for Windows
         run: |
           python -m nuitka dnschef.py --follow-imports
